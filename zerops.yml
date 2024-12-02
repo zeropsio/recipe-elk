@@ -1,0 +1,42 @@
+zerops:
+  - setup: kibana
+    build:
+      deployFiles:
+        - kibana.yml
+      addToRunPrepare:
+        - kibana.yml
+    run:
+      os: ubuntu
+      base: ubuntu@24.04
+      ports:
+        - port: 5601
+          httpSupport: true
+      prepareCommands:
+        - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+        - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+        - sudo apt-get update && sudo apt-get install kibana
+        - sudo systemctl enable kibana
+        - sudo mv kibana.yml /etc/kibana/kibana.yml
+        - sudo chown kibana /etc/kibana/kibana.yml
+      start: zsc noop --silent
+
+  - setup: apmserver
+    build:
+      deployFiles:
+        - apm-server.yml
+      addToRunPrepare:
+        - apm-server.yml
+    run:
+      os: ubuntu
+      base: ubuntu@24.04
+      ports:
+        - port: 8200
+          httpSupport: true
+      prepareCommands:
+        - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+        - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+        - sudo apt-get update && sudo apt-get install apm-server
+        - sudo systemctl enable apm-server
+        - sudo mv apm-server.yml /etc/apm-server/apm-server.yml
+        - sudo chown apm-server /etc/apm-server/apm-server.yml
+      start: zsc noop --silent

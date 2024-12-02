@@ -1,0 +1,19 @@
+project:
+  name: recipe-elastic-apm
+  tags:
+    - zerops-recipe
+services:
+  - hostname: elasticsearch
+    type: elasticsearch@8.16
+    mode: NON_HA
+    priority: 10
+
+  - hostname: kibana
+    type: ubuntu@24.04
+    minContainers: 1
+    maxContainers: 1
+
+  - hostname: apmserver
+    type: ubuntu@24.04
+    minContainers: 1
+    maxContainers: 1
