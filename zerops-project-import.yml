@@ -11,6 +11,7 @@ services:
   - hostname: kibana
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-apm
+    enableSubdomainAccess: true
     minContainers: 1
     maxContainers: 1
 
