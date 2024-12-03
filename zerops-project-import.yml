@@ -12,6 +12,8 @@ services:
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-apm
     enableSubdomainAccess: true
+    verticalAutoscaling:
+      minRam: 1
     minContainers: 1
     maxContainers: 1
 
