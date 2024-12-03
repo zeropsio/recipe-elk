@@ -1,5 +1,5 @@
 project:
-  name: recipe-elastic-apm
+  name: recipe-elastic-stack
   tags:
     - zerops-recipe
 services:
@@ -10,8 +10,16 @@ services:
 
   - hostname: kibana
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-apm
+    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
     enableSubdomainAccess: true
+    verticalAutoscaling:
+      minRam: 1
+    minContainers: 1
+    maxContainers: 1
+
+  - hostname: logstash
+    type: ubuntu@24.04
+    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
     verticalAutoscaling:
       minRam: 1
     minContainers: 1
@@ -19,6 +27,6 @@ services:
 
   - hostname: apmserver
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-apm
+    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
     minContainers: 1
     maxContainers: 1

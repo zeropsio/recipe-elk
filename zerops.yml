@@ -1,10 +1,9 @@
 zerops:
+  # Kibana
   - setup: kibana
     build:
       deployFiles:
-        - kibana.yml
-      addToRunPrepare:
-        - kibana.yml
+        - kibana/kibana.yml
     deploy:
       readinessCheck:
         httpGet:
@@ -20,17 +19,54 @@ zerops:
         - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
         - sudo apt-get update && sudo apt-get install kibana
-        - sudo systemctl enable kibana
-        - sudo mv kibana.yml /etc/kibana/kibana.yml && sudo chown kibana /etc/kibana/kibana.yml
-        - sudo apt-get autoremove && sudo apt-get clean # make smaller image
+        - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+        PUBLIC_BASE_URL: $zeropsSubdomain # Change, if you want to use your own domain to access Kibana.
+      envReplace:
+        delimiter: '%%'
+        target:
+          - ./kibana/
+      initCommands:
+        - sudo cp -f kibana/kibana.yml /etc/kibana/kibana.yml
+        - sudo chown -R kibana /etc/kibana
+        - sudo systemctl start kibana
       start: zsc noop --silent
 
+  # Logstash
+  - setup: logstash
+    build:
+      deployFiles:
+        - logstash/logstash.yml
+        - logstash/default.conf
+    run:
+      os: ubuntu
+      base: ubuntu@24.04
+      ports:
+        - port: 1514
+      prepareCommands:
+        - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+        - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+        - sudo apt-get update && sudo apt-get install logstash
+        - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+      envReplace:
+        delimiter: '%%'
+        target:
+          - ./logstash/
+      initCommands:
+        - sudo cp -f logstash/default.conf /etc/logstash/conf.d/default.conf
+        - sudo cp -f logstash/logstash.yml /etc/logstash/logstash.yml
+        - sudo chown -R logstash /etc/logstash
+        - sudo systemctl start logstash
+      start: zsc noop --silent
+
+  # APM Server
   - setup: apmserver
     build:
       deployFiles:
-        - apm-server.yml
-      addToRunPrepare:
-        - apm-server.yml
+        - apm-server/apm-server.yml
     deploy:
       readinessCheck:
         httpGet:
@@ -46,7 +82,15 @@ zerops:
         - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
         - sudo apt-get update && sudo apt-get install apm-server
-        - sudo systemctl enable apm-server
-        - sudo mv apm-server.yml /etc/apm-server/apm-server.yml && sudo chown apm-server /etc/apm-server/apm-server.yml
-        - sudo apt-get autoremove && sudo apt-get clean # make smaller image
+        - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+      envReplace:
+        delimiter: '%%'
+        target:
+          - ./apm-server/
+      initCommands:
+        - sudo cp -f apm-server/apm-server.yml /etc/apm-server/apm-server.yml
+        - sudo chown -R apm-server /etc/apm-server
+        - sudo systemctl start apm-server
       start: zsc noop --silent
