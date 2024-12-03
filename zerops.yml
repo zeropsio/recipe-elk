@@ -5,6 +5,11 @@ zerops:
         - kibana.yml
       addToRunPrepare:
         - kibana.yml
+    deploy:
+      readinessCheck:
+        httpGet:
+          path: /
+          port: 5601
     run:
       os: ubuntu
       base: ubuntu@24.04
@@ -26,6 +31,11 @@ zerops:
         - apm-server.yml
       addToRunPrepare:
         - apm-server.yml
+    deploy:
+      readinessCheck:
+        httpGet:
+          path: /
+          port: 8200
     run:
       os: ubuntu
       base: ubuntu@24.04
