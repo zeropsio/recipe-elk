@@ -26,7 +26,7 @@ zerops:
       envReplace:
         delimiter: '%%'
         target:
-          - ./kibana/
+          - kibana/kibana.yml
       initCommands:
         - sudo cp -f kibana/kibana.yml /etc/kibana/kibana.yml
         - sudo chown -R kibana /etc/kibana
@@ -38,12 +38,15 @@ zerops:
     build:
       deployFiles:
         - logstash/logstash.yml
-        - logstash/default.conf
+        - logstash/zerops-syslog.conf
     run:
       os: ubuntu
       base: ubuntu@24.04
       ports:
         - port: 1514
+          protocol: udp
+        - port: 1514
+          protocol: tcp
       prepareCommands:
         - wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
@@ -54,9 +57,9 @@ zerops:
       envReplace:
         delimiter: '%%'
         target:
-          - ./logstash/
+          - logstash/zerops-syslog.conf
       initCommands:
-        - sudo cp -f logstash/default.conf /etc/logstash/conf.d/default.conf
+        - sudo cp -f logstash/zerops-syslog.conf /etc/logstash/conf.d/zerops-syslog.conf
         - sudo cp -f logstash/logstash.yml /etc/logstash/logstash.yml
         - sudo chown -R logstash /etc/logstash
         - sudo systemctl start logstash
@@ -88,7 +91,7 @@ zerops:
       envReplace:
         delimiter: '%%'
         target:
-          - ./apm-server/
+          - apm-server/apm-server.yml
       initCommands:
         - sudo cp -f apm-server/apm-server.yml /etc/apm-server/apm-server.yml
         - sudo chown -R apm-server /etc/apm-server

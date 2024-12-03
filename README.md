@@ -34,13 +34,14 @@ services:
     maxContainers: 1
 ```
 
+To collect all Zerops logs with Logstash, set the following custom log forwarding (through GUI):
 ```
-destination destination_logstash_udp {
-    tcp("logstash" port(1514));
+destination d_logstash {
+  udp("logstash" port(1514));
 };
 
 log {
-    source(s_sys); destination(d_logstash);
+  source(s_src); destination(d_logstash);
 };
 ```
 
