@@ -25,7 +25,7 @@
 # Which directory should be used by logstash and its plugins
 # for any persistent needs. Defaults to LOGSTASH_HOME/data
 #
-# path.data:
+path.data: /var/lib/logstash
 #
 # ------------ Pipeline Settings --------------
 #
@@ -316,7 +316,7 @@ api.enabled: false
 # log.format: plain
 # log.format.json.fix_duplicate_message_fields: false
 #
-# path.logs:
+path.logs: /var/log/logstash
 #
 # ------------ Other Settings --------------
 #

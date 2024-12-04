@@ -1,8 +1,14 @@
 # Zerops x Elastic Stack
 
+Elastic is a distributed search and analytics engine at the core of the Elastic Stack, designed for storing, searching, and analyzing large volumes of structured and unstructured data in near real-time.
+
+![elastic](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-elastic.svg)
+
+<br/>
+
 ## Elastic ELK
 
-TODO: Description.
+[ELK (Elastic Stack)](https://www.elastic.co/elastic-stack/) is a powerful open-source suite for centralized logging, monitoring, and analytics, consisting of Elasticsearch for indexing and searching, Logstash for data processing, and Kibana for visualizing the data.
 
 Paste the following yml to Zerops GUI:
 ```yaml
@@ -44,6 +50,8 @@ log {
   source(s_src); destination(d_logstash);
 };
 ```
+
+<br/>
 
 ## Elastic APM
 
