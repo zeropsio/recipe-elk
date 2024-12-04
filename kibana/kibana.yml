@@ -8,7 +8,7 @@ server.port: 5601
 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
 # The default is 'localhost', which usually means remote machines will not be able to connect.
 # To allow connections from remote users, set this parameter to a non-loopback address.
-server.host: "0.0.0.0"
+server.host: 0.0.0.0
 
 # Enables you to specify a path to mount Kibana at if you are running behind a proxy.
 # Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath
@@ -100,17 +100,16 @@ elasticsearch.hosts:
 #logging.root.level: debug
 
 # Enables you to specify a file where Kibana stores log output.
-logging:
-  appenders:
-    file:
-      type: file
-      fileName: /var/log/kibana/kibana.log
-      layout:
-        type: json
-  root:
-    appenders:
-      - default
-      - file
+#logging.appenders.default:
+#  type: file
+#  fileName: /var/logs/kibana.log
+#  layout:
+#    type: json
+
+# Example with size based log rotation
+#logging.appenders.default:
+#  type: rolling-file
+#  fileName: /var/logs/kibana.log
 #  policy:
 #    type: size-limit
 #    size: 256mb
@@ -144,7 +143,7 @@ logging:
 #path.data: data
 
 # Specifies the path where Kibana creates the process ID file.
-pid.file: /run/kibana/kibana.pid
+#pid.file: /run/kibana/kibana.pid
 
 # Set the interval in milliseconds to sample system and process performance
 # metrics. Minimum is 100ms. Defaults to 5000ms.
