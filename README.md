@@ -1,5 +1,7 @@
 # Zerops x Elastic Stack
 
+This `@secure` version of recipe is still work in progress.
+
 Elastic is a distributed search and analytics engine at the core of the Elastic Stack, designed for storing, searching, and analyzing large volumes of structured and unstructured data in near real-time.
 
 ![elastic](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-elastic.svg)
@@ -59,6 +61,7 @@ log {
 
 Paste the following yml to Zerops GUI:
 ```yaml
+#yamlPreprocessor=on
 project:
   name: recipe-elastic-apm
   tags:
@@ -80,7 +83,9 @@ services:
 
   - hostname: apmserver
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack@secure
+    envSecrets:
+      SECRET_TOKEN: <@generateRandomString(<32>)>
     minContainers: 1
     maxContainers: 1
 ```

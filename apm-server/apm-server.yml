@@ -17,7 +17,7 @@ apm-server:
       #limit: 100
 
     # Define a shared secret token for authorizing agents using the "Bearer" authorization method.
-    # secret_token: %%SECRET_TOKEN%%
+    secret_token: %%SECRET_TOKEN%%
 
     # Allow anonymous access only for specified agents and/or services. This is primarily intended to allow
     # limited access for untrusted agents, such as Real User Monitoring.

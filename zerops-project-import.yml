@@ -1,3 +1,4 @@
+#yamlPreprocessor=on
 project:
   name: recipe-elastic-stack
   tags:
@@ -27,6 +28,8 @@ services:
 
   - hostname: apmserver
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack@secure
+    envSecrets:
+      SECRET_TOKEN: <@generateRandomString(<32>)>
     minContainers: 1
     maxContainers: 1
