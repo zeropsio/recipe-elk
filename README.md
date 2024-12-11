@@ -65,8 +65,6 @@ Paste the following yml to Zerops GUI:
 ```yaml
 project:
   name: recipe-elastic-stack
-  tags:
-    - zerops-recipe
 services:
   - hostname: elasticsearch
     type: elasticsearch@8.16
