@@ -20,9 +20,6 @@ zerops:
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
         - sudo apt-get update && sudo apt-get install kibana
         - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
-      envVariables:
-        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
-        PUBLIC_BASE_URL: $zeropsSubdomain # Change, if you want to use your own domain to access Kibana.
       envReplace:
         delimiter: '%%'
         target:
@@ -52,8 +49,6 @@ zerops:
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
         - sudo apt-get update && sudo apt-get install logstash
         - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
-      envVariables:
-        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
       envReplace:
         delimiter: '%%'
         target:
@@ -86,8 +81,6 @@ zerops:
         - echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
         - sudo apt-get update && sudo apt-get install apm-server
         - sudo apt-get autoremove && sudo apt-get clean # Make runtime image smaller.
-      envVariables:
-        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
       envReplace:
         delimiter: '%%'
         target:
