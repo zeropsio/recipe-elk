@@ -13,7 +13,9 @@ Elastic is a distributed search and analytics engine at the core of the Elastic 
 Paste the following yml to Zerops GUI:
 ```yaml
 project:
-  name: recipe-elastic-stack
+  name: recipe-elk
+  tags:
+    - zerops-recipe
 services:
   - hostname: elasticsearch
     type: elasticsearch@8.16
@@ -24,24 +26,16 @@ services:
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
     enableSubdomainAccess: true
-    envSecrets:
-      ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
-      PUBLIC_BASE_URL: $zeropsSubdomain
     verticalAutoscaling:
       minRam: 1
-    minContainers: 1
     maxContainers: 1
 
   - hostname: logstash
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
-    envSecrets:
-      ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
     verticalAutoscaling:
       minRam: 1
-    minContainers: 1
     maxContainers: 1
-
 ```
 
 To collect all Zerops logs with Logstash, set the following custom log forwarding (through GUI):
@@ -55,6 +49,10 @@ log {
 };
 ```
 
+Login to Kibana:
+- user: `elastic`
+- password: `password` environment variable of service `elasticsearch` (can be found in GUI)
+
 <br/>
 
 ## Elastic APM
@@ -64,7 +62,9 @@ log {
 Paste the following yml to Zerops GUI:
 ```yaml
 project:
-  name: recipe-elastic-stack
+  name: recipe-elk
+  tags:
+    - zerops-recipe
 services:
   - hostname: elasticsearch
     type: elasticsearch@8.16
@@ -75,20 +75,12 @@ services:
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
     enableSubdomainAccess: true
-    envSecrets:
-      ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
-      PUBLIC_BASE_URL: $zeropsSubdomain
     verticalAutoscaling:
       minRam: 1
-    minContainers: 1
     maxContainers: 1
 
   - hostname: apmserver
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
-    envSecrets:
-      ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.    
-    minContainers: 1
     maxContainers: 1
-
 ```

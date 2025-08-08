@@ -12,6 +12,10 @@ zerops:
     run:
       os: ubuntu
       base: ubuntu@24.04
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elasticsearch_password}
+        PUBLIC_BASE_URL: $zeropsSubdomain
       ports:
         - port: 5601
           httpSupport: true
@@ -39,6 +43,9 @@ zerops:
     run:
       os: ubuntu
       base: ubuntu@24.04
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elasticsearch_password}
       ports:
         - port: 1514
           protocol: udp
@@ -52,6 +59,7 @@ zerops:
       envReplace:
         delimiter: '%%'
         target:
+          - logstash/logstash.yml
           - logstash/zerops-syslog.conf
       initCommands:
         - sudo cp -f logstash/zerops-syslog.conf /etc/logstash/conf.d/zerops-syslog.conf
@@ -73,6 +81,9 @@ zerops:
     run:
       os: ubuntu
       base: ubuntu@24.04
+      envVariables:
+        ELASTICSEARCH_URL: http://elasticsearch:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elasticsearch_password}
       ports:
         - port: 8200
           httpSupport: true
