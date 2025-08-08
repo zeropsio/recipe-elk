@@ -55,6 +55,23 @@ Login to Kibana:
 
 <br/>
 
+### Forward Logs from External Sources
+In order to send logs from other projects too, one must enable the "Public Access through IP Addresses".
+1. Navigate to `recipe-elk` project > `logstash` service > "Direct access through IP address" menu > "Open port on IPv6"
+
+![setup port routing](public-port-routing-setup.png)
+
+2. Paste this to the logs source project "Log Forwarding", replace `<elk-project-public-ipv6>` (without `[]` brackets)
+```
+destination d_logstash {
+  tcp6("<elk-project-public-ipv6>" port(1514));
+};
+
+log {
+  source(s_src); destination(d_logstash);
+};
+```
+
 ## Elastic APM
 
 [Elastic APM](https://www.elastic.co/what-is/application-performance-monitoring) is a performance monitoring tool that hooks into your app to track latency, errors, and transactions across your stack, giving you real-time insights for debugging and optimizing code.
