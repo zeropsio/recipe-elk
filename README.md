@@ -17,14 +17,14 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearch
+  - hostname: elasticsearchlogs
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10
 
   - hostname: kibana
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     enableSubdomainAccess: true
     verticalAutoscaling:
       minRam: 1
@@ -32,7 +32,7 @@ services:
 
   - hostname: logstash
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     verticalAutoscaling:
       minRam: 1
     maxContainers: 1
@@ -51,7 +51,7 @@ log {
 
 Login to Kibana:
 - user: `elastic`
-- password: `password` environment variable of service `elasticsearch` (can be found in GUI)
+- password: `password` environment variable of service `elasticsearchlogs` (can be found in GUI)
 
 <br/>
 
@@ -83,14 +83,14 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearch
+  - hostname: elasticsearchlogs
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10
 
   - hostname: kibana
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     enableSubdomainAccess: true
     verticalAutoscaling:
       minRam: 1
@@ -98,6 +98,6 @@ services:
 
   - hostname: apmserver
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     maxContainers: 1
 ```

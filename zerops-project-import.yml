@@ -3,14 +3,14 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearch
+  - hostname: elasticsearchlogs
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10
 
   - hostname: kibana
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     enableSubdomainAccess: true
     verticalAutoscaling:
       minRam: 1
@@ -18,12 +18,12 @@ services:
 
   - hostname: logstash
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     verticalAutoscaling:
       minRam: 1
     maxContainers: 1
 
   - hostname: apmserver
     type: ubuntu@24.04
-    buildFromGit: https://github.com/zeropsio/recipe-elastic-stack
+    buildFromGit: https://github.com/zeropsio/recipe-elk
     maxContainers: 1
