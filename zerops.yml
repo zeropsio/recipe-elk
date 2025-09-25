@@ -13,8 +13,8 @@ zerops:
       os: ubuntu
       base: ubuntu@24.04
       envVariables:
-        ELASTICSEARCH_URL: http://elasticsearchlogs:9200 # Change, if your Elasticsearch runs on different hostname.
-        ELASTICSEARCH_PASSWORD: ${elasticsearchlogs_password}
+        ELASTICSEARCH_URL: http://elkstorage:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elkstorage_password}
         PUBLIC_BASE_URL: $zeropsSubdomain
       ports:
         - port: 5601
@@ -44,8 +44,8 @@ zerops:
       os: ubuntu
       base: ubuntu@24.04
       envVariables:
-        ELASTICSEARCH_URL: http://elasticsearchlogs:9200 # Change, if your Elasticsearch runs on different hostname.
-        ELASTICSEARCH_PASSWORD: ${elasticsearchlogs_password}
+        ELASTICSEARCH_URL: http://elkstorage:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elkstorage_password}
       ports:
         - port: 1514
           protocol: udp
@@ -82,8 +82,8 @@ zerops:
       os: ubuntu
       base: ubuntu@24.04
       envVariables:
-        ELASTICSEARCH_URL: http://elasticsearchlogs:9200 # Change, if your Elasticsearch runs on different hostname.
-        ELASTICSEARCH_PASSWORD: ${elasticsearchlogs_password}
+        ELASTICSEARCH_URL: http://elkstorage:9200 # Change, if your Elasticsearch runs on different hostname.
+        ELASTICSEARCH_PASSWORD: ${elkstorage_password}
       ports:
         - port: 8200
           httpSupport: true

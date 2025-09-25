@@ -17,7 +17,7 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearchlogs
+  - hostname: elkstorage
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10
@@ -51,7 +51,7 @@ log {
 
 Login to Kibana:
 - user: `elastic`
-- password: `password` environment variable of service `elasticsearchlogs` (can be found in GUI)
+- password: `password` environment variable of service `elkstorage` (can be found in GUI)
 
 <br/>
 
@@ -83,7 +83,7 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearchlogs
+  - hostname: elkstorage
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10

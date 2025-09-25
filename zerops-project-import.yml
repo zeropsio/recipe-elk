@@ -3,7 +3,7 @@ project:
   tags:
     - zerops-recipe
 services:
-  - hostname: elasticsearchlogs
+  - hostname: elkstorage
     type: elasticsearch@8.16
     mode: NON_HA
     priority: 10
