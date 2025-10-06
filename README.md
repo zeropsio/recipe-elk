@@ -100,4 +100,6 @@ services:
     type: ubuntu@24.04
     buildFromGit: https://github.com/zeropsio/recipe-elk
     maxContainers: 1
+    envSecrets:
+      SECRET_TOKEN: <@generateRandomString(<32>)>
 ```
